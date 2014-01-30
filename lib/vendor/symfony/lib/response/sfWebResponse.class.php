@@ -406,15 +406,28 @@ class sfWebResponse extends sfResponse
    */
   protected function normalizeHeaderName($name)
   {
+      // TODO : for clean up
       //depreciation fixit
-    //return preg_replace('/\-(.)/e', "'-'.strtoupper('\\1')", strtr(ucfirst(strtolower($name)), '_', '-'));
+//      $test = preg_replace('/\-(.)/e', "'-'.strtoupper('\\1')", strtr(ucfirst(strtolower($name)), '_', '-'));
+//    return $test;
     
-    return preg_replace_callback('/\-(.)/',
-            function() {
-                return "'-'.strtoupper('\\1')";
-            },
-            strtr(ucfirst(strtolower($name)), '_', '-')            
-           );
+//    $test = preg_replace_callback(
+//                '/\-(.)/',
+//                function($m) {
+//                    return '-'.strtoupper($m[1]);
+//                },
+//                strtr(ucfirst(strtolower($name)), '_', '-')
+//            );
+//        
+//    return $test;
+      
+      return preg_replace_callback(
+                '/\-(.)/',
+                function($m) {
+                    return '-'.strtoupper($m[1]);
+                },
+                strtr(ucfirst(strtolower($name)), '_', '-')
+            );
   }
 
   /**
