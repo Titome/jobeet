@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
-      <title>Jobeet - Your best job board</title>
+      <title><?php include_slot('title', 'Jobeet - Your best job board') ?></title>
       <link rel="shortcut icon" href="/web/favicon.ico" />
     <?php include_javascripts() ?>
     <?php include_stylesheets() ?>
@@ -11,7 +11,7 @@
           <div id="header">
               <div class="content">
                   <h1>
-                      <a href="<?php echo url_for('job/index') ?>">
+                      <a href="<?php echo url_for('@homepage') ?>">
                           <img src="/web/legacy/images/logo.jpg" alt="Jobeet Job Board" />
                       </a>
                   </h1>
