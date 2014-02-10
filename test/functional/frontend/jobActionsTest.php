@@ -52,7 +52,21 @@ $browser->info('2 - The job page')->
     get('/')->
         
     info('  2.1 - Each job on the homepage is clickable and give detailed information')->
-    click('Web Develper', array(), array('position' => 1))->
+    click('Web Developer', array(), array('position' => 1))->
     with('request')->begin()->
         isParameter('module', 'job')->
         isParameter('action', 'show')->
+        isParameter('company_slug', $job->getCompanySlug())->
+        isParameter('location_slug', $job->getLocationSlug())->
+        isParameter('position_slug', $job->getPositionSlug())->
+        isParameter('id', $job->getId())->
+    end()->
+        
+    info('  2.2 - A non-existent job forwards the user to a 404')->
+    get('/job/foo-inc/milano-italy/0/painter')->
+    with('response')->isStatusCode(404)->
+        
+    info('  2.3 - An expired job page forwards the user to a 404')->
+    get(sprintf('/job/sensio-labs/paris-france/%d/web-developer', $browser->getExpiredJob()->getId()))->
+    with('response')->isStatusCode(404)
+;
