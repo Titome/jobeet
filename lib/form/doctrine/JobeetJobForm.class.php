@@ -47,5 +47,7 @@ class JobeetJobForm extends BaseJobeetJobForm {
             $this->validatorSchema['email'],
             new sfValidatorEmail(),
         ));
+        
+        $this->widgetSchema->setNameFormat('job[%s]');
     }
 }
