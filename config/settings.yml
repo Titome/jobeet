@@ -1,0 +1,3 @@
+#dev:
+#    .settings:
+#        error_reporting: <?php echo ((E_ALL | E_STRICT) ^ E_DEPRECATED)."\n" ?>

@@ -27,11 +27,19 @@ class sfInflector
    */
   public static function camelize($lower_case_and_underscored_word)
   {
-    $tmp = $lower_case_and_underscored_word;
-    $tmp = sfToolkit::pregtr($tmp, array('#/(.?)#e'    => "'::'.strtoupper('\\1')",
-                                         '/(^|_|-)+(.)/e' => "strtoupper('\\2')"));
-
-    return $tmp;
+      // NOTE : depreciation fixit
+      //        see https://github.com/LExpress/symfony1/commit/b90e1254f5208f8666491cf27392a22d38860131#diff-a7bed07bd3c4b8fc96179658f0b0b2bd
+//    $tmp = $lower_case_and_underscored_word;
+//    $tmp = sfToolkit::pregtr($tmp, array('#/(.?)#e'    => "'::'.strtoupper('\\1')",
+//                                         '/(^|_|-)+(.)/e' => "strtoupper('\\2')"));
+//
+//    return $tmp;
+      
+      return strtr(ucwords(strtr($lower_case_and_underscored_word, array(
+          '/' => ':: ',
+          '_' => ' ',
+          '-' => ' ')
+      )),array(' ' => ''));
   }
 
   /**
