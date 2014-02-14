@@ -18,6 +18,10 @@ class JobeetCategory extends BaseJobeetCategory
         return $q->execute();
     }
     
+    public function getLatestPost() {
+        return $this->getActiveJobs(1)->getFirst();
+    }
+
     public function countActiveJobs() {
         return $this->getActiveJobsQuery()->count();
     }
