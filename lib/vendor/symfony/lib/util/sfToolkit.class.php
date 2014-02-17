@@ -359,13 +359,7 @@ class sfToolkit
    */
   public static function pregtr($search, $replacePairs)
   {
-      // TODO : for depreciate fixit
     return preg_replace(array_keys($replacePairs), array_values($replacePairs), $search);
-      
-//      $test = preg_replace(array_keys($replacePairs), array_values($replacePairs), $search);
-//      return $test;
-      
-      
   }
 
   /**

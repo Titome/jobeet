@@ -42,11 +42,6 @@ class sfCommandOption
    */
   public function __construct($name, $shortcut = null, $mode = null, $help = '', $default = null)
   {
-    // NOTE : for fixit Warning: substr() expects parameter 1 to be string, array given
-    //        but given a Notice :(
-//    if (is_array($name))
-//        settype ($name, "string");
-      
     if ('--' == substr($name, 0, 2))
     {
       $name = substr($name, 2);
