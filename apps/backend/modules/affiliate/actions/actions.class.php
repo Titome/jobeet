@@ -13,7 +13,23 @@ require_once dirname(__FILE__).'/../lib/affiliateGeneratorHelper.class.php';
  */
 class affiliateActions extends autoAffiliateActions {
     public function executeListActivate() {
-        $this->getRoute()->getObject()->activate();
+        $affiliate = $this->getRoute()->getObject();
+        $affiliate->activate();
+        
+        $message = $this->getMailer()->compose(
+                array('jobeet@example.com' => 'Jobeet Bot'),
+                $affiliate->getEmail(),
+                'Jobeet affiliate token',
+                <<<EOF
+Your Jobeet affiliate account has been activated.
+    
+Your token is {$affiliate->getToken()}.
+
+The Jobeet Bot.
+EOF
+        );
+
+        $this->getMailer()->send($message);
         
         $this->redirect('jobeet_affiliate');
     }
