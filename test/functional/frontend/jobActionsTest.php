@@ -85,7 +85,7 @@ $browser->info('3 - Post a Job page')->
     click('Preview your job', array('job' => array(
         'company'      => 'Sensio Labs',
         'url'          => 'http://www.sensio.com/',
-        'logo'         => sfConfig::get('sf_upload_dir').'/jobs/sensio-labs.gif',
+        'logo'         => '/web/uploads/jobs/sensio-labs.gif',
         'position'     => 'Developer',
         'location'     => 'Atlanta, USA',
         'description'  => 'You will work with symfony to develop websites for our customers.',
@@ -112,104 +112,105 @@ $browser->info('3 - Post a Job page')->
     end()
 ;
 
-//$browser->setTester('doctrine', 'sfTesterDoctrine')->
-//    with('doctrine')->begin()->
-//        check('JobeetJob', array(
-//            'location'     => 'Atlanta, USA',
-//            'is_activated' => false,
-//            'is_public'    => false,
-//        ))->
-//    end()
-//;
-//
-//$browser->
-//    info('  3.2 - Submit a Job with invalid values')->
-//        
-//    get('/job/new')->
-//    click('Preview your job', array('job' => array(
-//        'company'  => 'Sensio Labs',
-//        'position' => 'Developer',
-//        'location' => 'Atlanta, USA',
-//        'email'    => 'not.an.email',
-//    )))->
-//        
-//   with('form')->begin()->
-//        hasErrors(3)->
-//        isError('description', 'required')->
-//        isError('how_to_apply', 'required')->
-//        isError('email', 'invalid')->
-//   end()
-//;
-//
-//$browser->info('    3.3 - On the preview page, you can publish the job')->
-//        createJob(array('position' => 'FOO1'))->
-//        click('Publish', array(), array('method' => 'put', '_with_csrf' => true))->
-//        
-//        with('doctrine')->begin()->
-//            check('JobeetJob', array(
-//                'position'     => 'FOO1',
-//                'is_activated' => true,
-//            ))->
-//        end()
-//;
-//
-//$browser->info('    3.4 - On the preview page, you can delete the job')->
-//        createJob(array('position' => 'FOO2'))->
-//        click('Delete', array(), array('method' => 'delete', '_with_csrf' => true))->
-//        
-//        with('doctrine')->begin()->
-//            check('JobeetJob', array(
-//                'position' => 'FOO2',
-//            ), false)->
-//        end()
-//;
-//
-//$browser->info('    3.5 - When a job is published, it cannot be edited anymore')->
-//        createJob(array('position' => 'FOO3'), true)->
-//        get(sprintf('/job/%s/edit', $browser->getJobByPosition('FOO3')->getToken()))->
-//        
-//        with('response')->begin()->
-//            isStatusCode(404)->
-//        end()
-//;
-//
-//$browser->info('    3.6 - A job validity cannot be extended before the job expires soon')->
-//    createJob(array('position' => 'FOO4'), true)->
-//    call(sprintf('/job/%s/extend', $browser->getJobByPosition('FOO4')->getToken()), 'put',
-//            array('_with_csrf' => true))->
-//    with('response')-begin()->
-//        isStatusCode(404)->
-//    end()
-//;
-//
-//$browser->info('    3.7 - A job validity can be extended when the job expires soon')->
-//    createJob(array('position' => 'FOO5'), true)
-//;
-//
-//$job = $browser->getJobByPosition('FOO5');
-//$job->setExpiresAt(date('Y-m-d'));
-//$job->save();
-//
-//$browser->
-//    call(sprintf('/job/%s/extend', $job->getToken()), 'put', array('_with_csrf' => true))->
-//    with('response')->isRedirected()
-//;
-//
-//$job->refresh();
-//$browser->test()->is($job->getDateTimeObject('expires_at')->format('y/m/d'),
-//                     date('y/m/d', time() + 86400 * sfConfig::get('app_active_days')));
-//
-//$browser->
-//    get('/job/new')->
-//    click('Preview your job', array('job' => array(
-//        'token' => 'fake_token',
-//    )))->
-//        
-//   with('form')->begin()->
-//        hasErrors(7)->
-//        hasGlobalError('extra_fields')->
-//   end()
-//;
+$browser->setTester('doctrine', 'sfTesterDoctrine');
+$browser->
+    with('doctrine')->begin()->
+        check('JobeetJob', array(
+            'location'     => 'Atlanta, USA',
+            'is_activated' => false,
+            'is_public'    => false,
+        ))->
+    end()
+;
+
+$browser->
+    info('  3.2 - Submit a Job with invalid values')->
+        
+    get('/job/new')->
+    click('Preview your job', array('job' => array(
+        'company'  => 'Sensio Labs',
+        'position' => 'Developer',
+        'location' => 'Atlanta, USA',
+        'email'    => 'not.an.email',
+    )))->
+        
+   with('form')->begin()->
+        hasErrors(3)->
+        isError('description', 'required')->
+        isError('how_to_apply', 'required')->
+        isError('email', 'invalid')->
+   end()
+;
+
+$browser->info('    3.3 - On the preview page, you can publish the job')->
+        createJob(array('position' => 'FOO1'))->
+        click('Publish', array(), array('method' => 'put', '_with_csrf' => true))->
+        
+        with('doctrine')->begin()->
+            check('JobeetJob', array(
+                'position'     => 'FOO1',
+                'is_activated' => true,
+            ))->
+        end()
+;
+
+$browser->info('    3.4 - On the preview page, you can delete the job')->
+        createJob(array('position' => 'FOO2'))->
+        click('Delete', array(), array('method' => 'delete', '_with_csrf' => true))->
+        
+        with('doctrine')->begin()->
+            check('JobeetJob', array(
+                'position' => 'FOO2',
+            ), false)->
+        end()
+;
+
+$browser->info('    3.5 - When a job is published, it cannot be edited anymore')->
+        createJob(array('position' => 'FOO3'), true)->
+        get(sprintf('/job/%s/edit', $browser->getJobByPosition('FOO3')->getToken()))->
+        
+        with('response')->begin()->
+            isStatusCode(404)->
+        end()
+;
+
+$browser->info('    3.6 - A job validity cannot be extended before the job expires soon')->
+    createJob(array('position' => 'FOO4'), true)->
+    call(sprintf('/job/%s/extend', $browser->getJobByPosition('FOO4')->getToken()), 'put',
+            array('_with_csrf' => true))->
+    with('response')->begin()->
+        isStatusCode(404)->
+    end()
+;
+
+$browser->info('    3.7 - A job validity can be extended when the job expires soon')->
+    createJob(array('position' => 'FOO5'), true)
+;
+
+$job = $browser->getJobByPosition('FOO5');
+$job->setExpiresAt(date('Y-m-d'));
+$job->save();
+
+$browser->
+    call(sprintf('/job/%s/extend', $job->getToken()), 'put', array('_with_csrf' => true))->
+    with('response')->isRedirected()->debug()
+;
+
+$job->refresh();
+$browser->test()->is($job->getDateTimeObject('expires_at')->format('y/m/d'),
+                     date('y/m/d', time() + 86400 * sfConfig::get('app_active_days')));
+
+$browser->
+    get('/job/new')->
+    click('Preview your job', array('job' => array(
+        'token' => 'fake_token',
+    )))->
+        
+   with('form')->begin()->
+        hasErrors(7)->
+        hasGlobalError('extra_fields')->
+   end()
+;
 
 $browser->
     info('4 - User job history')->
@@ -230,5 +231,15 @@ $browser->
     get('/')->
     with('user')->begin()->
         isAttribute('job_history', array($browser->getMostRecentProgrammingJob()->getId()))->
+    end()
+;
+
+$browser->setHttpHeader('X_REQUESTED_WITH', 'XMLHttpRequest');
+$browser->
+    info('5 - Live search')->
+    
+    get('/search?query=sens*')->
+    with('response')->begin()->
+        checkElement('table tr', 2)->
     end()
 ;

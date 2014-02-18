@@ -6,4 +6,5 @@ dev:
 test:
     .settings:
 #        error_reporting: <?php echo ((E_ALL | E_STRICT) ^ E_DEPRECATED)."\n" ?>
-    error_reporting: <?php echo E_ALL & ~E_DEPRECATED ."\n" ?>
+    error_reporting: <?php echo E_ALL ^ (E_WARNING | E_DEPRECATED | E_NOTICE) ."\n" ?>
+#error_reporting: <?php echo ~E_ALL ."\n" ?>

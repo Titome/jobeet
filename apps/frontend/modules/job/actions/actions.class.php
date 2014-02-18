@@ -71,16 +71,25 @@ class jobActions extends sfActions {
         $request->checkCSRFProtection();
         
         $job = $this->getRoute()->getObject();
-        $this->forwardUnless($job->extend());
+        $this->forward404Unless($job->extend());
         
         $this->getUser()->setFlash('notice', sprintf('Your job validity has been extended until %s.',
                 $job->getDateTimeObject('expires_at')->format('m/d/Y')));
+        
+        $this->redirect('job_show_user', $job);
     }
     
     public function executeSearch(sfWebRequest $request) {
         $this->forwardUnless($query = $request->getParameter('query'), 'job', 'index');
         
         $this->jobs = Doctrine_Core::getTable('JobeetJob')->getForLuceneQuery($query);
+        
+        if ($request->isXmlHttpRequest()) {
+            if ('*' == $query || !$this->jobs)
+                return $this->renderText('No results.');
+            
+            return $this->renderPartial('job/list', array('jobs' => $this->jobs));
+        }            
     }
 
     protected function processForm(sfWebRequest $request, sfForm $form) {

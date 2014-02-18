@@ -5,6 +5,8 @@
       <link rel="shortcut icon" href="/web/favicon.ico" />
       <link rel="alternate" type="application/atom+xml" title="Latest Jobs"
             href="<?php echo url_for('job', array('sf_format' => 'atom'), true) ?>" />
+      <?php use_javascript('jquery-1.11.0.min.js') ?>
+      <?php use_javascript('search.js') ?>
       <?php include_javascripts() ?>
       <?php include_stylesheets() ?>
   </head>
@@ -27,15 +29,17 @@
                       </div>
                   
                       <div class="search">
-                        <h2>Ask for a job</h2>
-                        <form action="<?php echo url_for('job_search') ?>" method="get">
-                            <input type="text" name="query" id="search_keywords" 
-                                   value="<?php echo $sf_request->getParameter('query') ?>" />
-                            <input type="submit" value="search" />
-                            <div class="help">
-                                Enter some keywords (city, country, position, ...)
-                            </div>
-                        </form>
+                          <h2>Ask for a job</h2>
+                          <form action="<?php echo url_for('job_search') ?>" method="get">
+                              <input type="text" name="query" id="search_keywords" 
+                                  value="<?php echo $sf_request->getParameter('query') ?>" />
+                              <input type="submit" value="search" />
+                              <img id="loader" src="/jobeet/web/legacy/images/loader.gif"
+                                   style="vertical-align: middle; display: none" />
+                              <div class="help">
+                                  Enter some keywords (city, country, position, ...)
+                              </div>
+                          </form>
                       </div>
                   </div>
               </div>
