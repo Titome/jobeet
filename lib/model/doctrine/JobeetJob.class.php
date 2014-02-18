@@ -71,6 +71,28 @@ class JobeetJob extends BaseJobeetJob
         
         return true;
     }
+    
+    public function updateLuceneIndex() {
+        $index = JobeetJobTable::getLuceneIndex();
+        
+        foreach ($index->find('pk:'.$this->getId()) as $hit)
+            $index->delete($hit->id);
+        
+        if ($this->isExpired() || !$this->getIsActivated())
+            return;
+        
+        $doc = new Zend_Search_Lucene_Document();
+        
+        $doc->addField(Zend_Search_Lucene_Field::keyword('pk', $this->getId()));
+        
+        $doc->addField(Zend_Search_Lucene_Field::unStored('position', $this->getPosition(), 'utf-8'));
+        $doc->addField(Zend_Search_Lucene_Field::unStored('company', $this->getCompany(), 'utf-8'));
+        $doc->addField(Zend_Search_Lucene_Field::unStored('location', $this->getLocation(), 'utf-8'));
+        $doc->addField(Zend_Search_Lucene_Field::unStored('description', $this->getDescription(), 'utf-8'));
+        
+        $index->addDocument($doc);
+        $index->commit();
+    }
 
     public function save(Doctrine_Connection $conn = null) {
         if ($this->isNew() && !$this->getExpiresAt()) {
@@ -81,6 +103,33 @@ class JobeetJob extends BaseJobeetJob
         if (!$this->getToken())
             $this->setToken(sha1($this->getEmail() . rand(11111, 99999)));
         
-        return parent::save($conn);
+        // NOTE : correction du tuto jobeet
+        //$conn = $conn ? $conn : JobeetJobTable::getConnection();
+        
+        $conn = $conn ? $conn : Doctrine_Core::getTable('JobeetJob')->getConnection();
+        $conn->beginTransaction();
+        
+        try {
+            $ret = parent::save($conn);
+        
+            $this->updateLuceneIndex();
+            
+            $conn->commit();
+
+            return $ret;
+        }
+        catch (Exception $e) {
+            $conn->rollback();
+            throw $e;
+        }
+    }
+    
+    public function delete(Doctrine_Connection $conn = null) {
+        $index = JobeetJobTable::getLuceneIndex();
+        
+        foreach ($index->find('pk:'.$this->getId()) as $hit)
+            $index->delete ($hit->id);
+        
+        return parent::delete($conn);
     }
 }
