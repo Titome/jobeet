@@ -1,16 +1,11 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of JobeetTestFunctional
  *
  * @author girard-t
  */
+
 class JobeetTestFunctional extends sfTestFunctional {
     public function loadData() {
         Doctrine_Core::loadData(sfConfig::get('sf_test_dir').'/fixtures');
@@ -23,7 +18,9 @@ class JobeetTestFunctional extends sfTestFunctional {
             ->select('j.*')
             ->from('JobeetJob j')
             ->leftJoin('j.JobeetCategory c')
-            ->where('c.slug = ?', 'programming');
+            ->leftJoin('c.Translation t')
+            ->where('t.slug = ?', 'programming');
+        
         $q = Doctrine_Core::getTable('JobeetJob')->addActiveJobsQuery($q);
 
         return $q->fetchOne();
@@ -47,7 +44,7 @@ class JobeetTestFunctional extends sfTestFunctional {
 
     public function createJob($values = array(), $publish = false) {
         $this->
-            get('/job/new')->
+            get('/en/job/new')->
             click('Preview your job', array('job' => array_merge(array(
                 'company'      => 'Sensio Labs',
                 'url'          => 'http://www.sensio.com/',

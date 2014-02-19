@@ -5,7 +5,7 @@
       <link rel="shortcut icon" href="/web/favicon.ico" />
       <link rel="alternate" type="application/atom+xml" title="Latest Jobs"
             href="<?php echo url_for('job', array('sf_format' => 'atom'), true) ?>" />
-      <?php use_javascript('jquery-1.11.0.min.js') ?>
+      <?php use_javascript('jquery-2.1.0.min.js') ?>
       <?php use_javascript('search.js') ?>
       <?php include_javascripts() ?>
       <?php include_stylesheets() ?>
@@ -84,15 +84,16 @@
                     </a>
                 </span>
                 <ul>
-                    <li><a href="">About Jobeet</a></li>
+                    <li><a href=""><?php echo __('About Jobeet') ?></a></li>
                     <li class="feed">
-                        <a href="<?php echo url_for('job', array('sf_format' => 'atom')) ?>">Full feed</a>
+                        <?php echo link_to(__('Full feed'), 'job', array('sf_format' => 'atom')) ?>
                     </li>
-                    <li><a href="">Jobeet API</a></li>
+                    <li><a href=""><?php echo __('Jobeet API') ?></a></li>
                     <li class="last">
-                        <a href="<?php echo url_for('affiliate_new') ?>">Become an affiliate</a>
+                        <?php echo link_to(__('Become an affiliate'), 'affiliate_new') ?>
                     </li>
                 </ul>
+                <?php include_component('language', 'language') ?>
             </div>
           </div>
       </div>

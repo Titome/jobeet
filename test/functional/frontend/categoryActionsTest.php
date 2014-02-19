@@ -6,8 +6,8 @@ $browser = new JobeetTestFunctional(new sfBrowser());
 $browser->loadData();
 
 $browser->info('1 - The category page')->
-  info('  1.1 - Categories on homepage are clickable')->
-  get('/')->
+  info('    1.1 - Categories on homepage are clickable')->
+  get('/en/')->
   click('Programming')->
   with('request')->begin()->
     isParameter('module', 'category')->
@@ -17,7 +17,7 @@ $browser->info('1 - The category page')->
 
   info(sprintf('    1.2 - Categories with more than %s jobs also have a "more" link',
    sfConfig::get('app_max_jobs_on_homepage')))->
-  get('/')->
+  get('/en/')->
   click('22')->
   with('request')->begin()->
     isParameter('module', 'category')->

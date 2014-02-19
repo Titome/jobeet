@@ -27,4 +27,11 @@ class myUser extends sfBasicSecurityUser {
     public function resetJobHistory() {
         $this->getAttributeHolder()->remove('job_history');
     }
+    
+    public function isFirstRequest($boolean = null) {
+        if (is_null($boolean))
+            return $this->getAttribute('first_request', true);
+        
+        $this->setAttribute('first_request', $boolean);
+    }
 }

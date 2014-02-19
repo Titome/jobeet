@@ -1,7 +1,8 @@
 <?php use_stylesheet('jobs.css') ?>
 
-<!-- WARNING : it's a id at origin, but in the css file, this is configurate for a class -->
-<div class="jobs">
+<!-- WARNING : it's a id at origin, but in the css file, this is configurate for a class
+               and you need at a id for the ajax -->
+<div class="jobs" id="jobs">
     <?php foreach ($categories as $category): ?>
         <div class="category_<?php echo Jobeet::slugify($category->getName()) ?>">
             <div class="category">
@@ -19,7 +20,8 @@
                 if (($count = $category->countActiveJobs() - sfConfig::get('app_max_jobs_on_homepage')) > 0):
             ?>
                 <div class="more_jobs">
-                    and <?php echo link_to($count, 'category', $category) ?> more...
+                    <?php echo __('and %count% more ...',
+                            array('%count%' => link_to($count, 'category', $category))) ?>
                 </div>
             <?php endif; ?>
         </div>
