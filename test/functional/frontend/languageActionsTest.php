@@ -8,7 +8,7 @@ $browser->
   get('/change_language')->
 
   with('request')->begin()->
-    isParameter('module', 'language')->
+    isParameter('module', 'sfJobeetLanguage')->
     isParameter('action', 'changeLanguage')->
   end()->
 
