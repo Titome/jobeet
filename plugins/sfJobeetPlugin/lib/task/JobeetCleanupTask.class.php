@@ -48,5 +48,6 @@ EOF;
         
         $nb = Doctrine_Core::getTable('JobeetJob')->cleanup($options['days']);
         $this->logSection('doctrine', sprintf('Removed %d stale jobs', $nb));
+        var_dump(sfConfig::get('app_active_days'));
     }
 }

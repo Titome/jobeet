@@ -1,3 +1,6 @@
+all:
+#    app_template_dir: %SF_LIB_DIR%/templates
+
 dev:
     .settings:
 #        error_reporting: <?php echo ((E_ALL | E_STRICT) ^ E_DEPRECATED)."\n" ?>

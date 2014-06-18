@@ -19,4 +19,4 @@ $t->is(Jobeet::slugify(' - '), 'n-a',
 if (function_exists('iconv'))
     $t->is(Jobeet::slugify('Développeur Web'), 'developpeur-web', '::slugify() removes accents');
 else
-    $t->skip ('::slugify() removes accents - iconv not installed');
+    $t->skip('::slugify() removes accents - iconv not installed');

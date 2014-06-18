@@ -71,8 +71,6 @@ $browser->info('2 - The job page')->
     with('response')->isStatusCode(404)
 ;
 
-// TODO : fix it test for passing
-
 $browser->info('3 - Post a Job page')->
     info('  3.1 - Submit a Job')->
         

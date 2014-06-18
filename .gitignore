@@ -2,5 +2,7 @@
 ## Symfony
 #############
 
-cache/
-log/
+/cache/
+/log/
+/data/*index
+/*/**/.DS_Store

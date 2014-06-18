@@ -12,7 +12,7 @@
                 <h1><?php echo link_to($category, 'category', $category) ?></h1>
             </div>
             
-            <?php include_partial('sfJobeetJob/list', 
+            <?php include_partial('global/list', 
                         array('jobs' => $category->getActiveJobs(sfConfig::get('app_max_jobs_on_homepage'))))
             ?>
             

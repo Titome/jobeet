@@ -68,7 +68,13 @@ class sfPartialView extends sfPHPView
     $this->setTemplate($this->actionName.$this->getExtension());
     if ('global' == $this->moduleName)
     {
-      $this->setDirectory($this->context->getConfiguration()->getDecoratorDir($this->getTemplate()));
+        $this->setDirectory("C:/xampp/htdocs/jobeet/lib/templates");
+//      $this->setDirectory($this->context->getConfiguration()->getDecoratorDir($this->getTemplate()));
+//      die($this->getDirectory());
+    }
+    elseif ('globalLib' == $this->moduleName) {
+        $this->setDirectory(sfConfig::get('sf_lib_dir').'/templates');
+//        die($this->getDirectory());
     }
     else
     {

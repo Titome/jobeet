@@ -505,7 +505,9 @@ abstract class sfApplicationConfiguration extends ProjectConfiguration
    */
   public function getDecoratorDir($template)
   {
-    foreach ($this->getDecoratorDirs() as $dir)
+      $deco = $this->getDecoratorDirs();
+      
+    foreach ($deco as $dir)
     {
       if (is_readable($dir.'/'.$template))
       {

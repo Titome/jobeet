@@ -101,6 +101,8 @@ abstract class PluginJobeetJobTable extends Doctrine_Table {
                 ->andWhere('a.is_activated = ?', 0)
                 ->andWhere('a.created_at < ?', date('Y-m-d', time() - 86400 * $days));
         
+        var_dump(sfConfig::get('app_active_days'));
+        
         return $q->execute();
     }
     
