@@ -55,7 +55,7 @@ JobeetJob:
         token:          job_expired
         email:          job@example.com
         
-<?php for ($i = 100; $i <= 130; $i++): ?>
+    <?php for ($i = 100; $i <= 130; $i++): ?>
     job_<?php echo $i ?>:
         JobeetCategory: programming
         company:        Company <?php echo $i."\n" ?>
@@ -68,4 +68,4 @@ JobeetJob:
         is_activated:   true
         token:          job_<?php echo $i."\n" ?>
         email:          job@example.com
-<?php endfor; ?>
+    <?php endfor; ?>

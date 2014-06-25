@@ -61,6 +61,9 @@ class sfPartialView extends sfPHPView
 
   /**
    * Configures template for this view.
+   * 
+   * Add a new condition for the global template for all project.
+   * Just call 'project/<nameOfTemplate>'
    */
   public function configure()
   {
@@ -68,14 +71,10 @@ class sfPartialView extends sfPHPView
     $this->setTemplate($this->actionName.$this->getExtension());
     if ('global' == $this->moduleName)
     {
-        $this->setDirectory("C:/xampp/htdocs/jobeet/lib/templates");
-//      $this->setDirectory($this->context->getConfiguration()->getDecoratorDir($this->getTemplate()));
-//      die($this->getDirectory());
+        $this->setDirectory($this->context->getConfiguration()->getDecoratorDir($this->getTemplate()));
     }
-    elseif ('globalLib' == $this->moduleName) {
-        $this->setDirectory(sfConfig::get('sf_lib_dir').'/templates');
-//        die($this->getDirectory());
-    }
+    elseif ('project' == $this->moduleName)
+        $this->setDirectory(sfConfig::get('sf_project_template_dir', sfConfig::get('sf_lib_dir').'/templates'));
     else
     {
       $this->setDirectory($this->context->getConfiguration()->getTemplateDir($this->moduleName, $this->getTemplate()));
