@@ -67,5 +67,4 @@ JobeetJob:
         is_public:      true
         is_activated:   true
         token:          job_<?php echo $i."\n" ?>
-        email:          job@example.com
-        <?php endfor; ?>
+        email:          job@example.com<?php endfor; ?>
